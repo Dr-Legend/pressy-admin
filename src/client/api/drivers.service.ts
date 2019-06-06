@@ -24,7 +24,7 @@ import { CreatePersonRequestDto } from '../model/createPersonRequestDto';
 
 @injectable()
 export class DriversService {
-    private basePath: string = 'http://localhost:3002/v1';
+    private basePath: string = 'https://pressy-admin-api-dev.herokuapp.com/v1';
 
     constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
         @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
@@ -53,8 +53,8 @@ export class DriversService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/driver`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <any>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }

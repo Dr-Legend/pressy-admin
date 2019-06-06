@@ -32,7 +32,7 @@ export class AuthenticationService {
     @inject(TYPES.IApiHttpClient) private httpClient: IHttpClient;
     @inject(TYPES.IAPIConfiguration) private APIConfiguration: IAPIConfiguration;
     get basePath(): string {
-        return this.APIConfiguration.basePath || 'http://localhost:3002/v1';
+        return this.APIConfiguration.basePath || 'https://pressy-admin-api-dev.herokuapp.com/v1';
     }
 
     /**
@@ -76,8 +76,8 @@ export class AuthenticationService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<AuthCredentialsDto>> = this.httpClient.post(`${this.basePath}/auth/refresh`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <AuthCredentialsDto>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }

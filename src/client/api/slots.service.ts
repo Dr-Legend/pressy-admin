@@ -28,7 +28,7 @@ import { SlotDto } from '../model/slotDto';
 
 @injectable()
 export class SlotsService {
-    private basePath: string = 'http://localhost:3002/v1';
+    private basePath: string = 'https://pressy-admin-api-dev.herokuapp.com/v1';
 
     constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
         @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
@@ -57,8 +57,8 @@ export class SlotsService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<SlotDto>> = this.httpClient.post(`${this.basePath}/slot`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <SlotDto>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -85,8 +85,8 @@ export class SlotsService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/slot`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <any>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -113,8 +113,8 @@ export class SlotsService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<SlotDto>> = this.httpClient.patch(`${this.basePath}/slot`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <SlotDto>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -141,8 +141,8 @@ export class SlotsService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<SlotDto>>> = this.httpClient.get(`${this.basePath}/slot?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <Array<SlotDto>>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }

@@ -26,7 +26,7 @@ import { OrderDto } from '../model/orderDto';
 
 @injectable()
 export class OrdersService {
-    private basePath: string = 'http://localhost:3002/v1';
+    private basePath: string = 'https://pressy-admin-api-dev.herokuapp.com/v1';
 
     constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
         @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
@@ -60,8 +60,8 @@ export class OrdersService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/order/assign-driver/${encodeURIComponent(String(orderMissionType))}`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <any>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -88,8 +88,8 @@ export class OrdersService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<OrderDto>> = this.httpClient.patch(`${this.basePath}/order`, request , headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <OrderDto>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -120,8 +120,8 @@ export class OrdersService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<OrderDto>>> = this.httpClient.get(`${this.basePath}/order?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <Array<OrderDto>>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -147,8 +147,8 @@ export class OrdersService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/order/apply-absent-penalty/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <any>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }

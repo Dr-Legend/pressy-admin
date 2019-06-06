@@ -26,7 +26,7 @@ import { CreateArticleRequestDto } from '../model/createArticleRequestDto';
 
 @injectable()
 export class ArticlesService {
-    private basePath: string = 'http://localhost:3002/v1';
+    private basePath: string = 'https://pressy-admin-api-dev.herokuapp.com/v1';
 
     constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
         @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
@@ -56,7 +56,7 @@ export class ArticlesService {
 
         const response: Observable<HttpResponse<ArticleDto>> = this.httpClient.post(`${this.basePath}/article`, request , headers);
         if (observe === 'body') {
-               return response.map(httpResponse => <ArticleDto>(httpResponse.response));
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
@@ -77,8 +77,8 @@ export class ArticlesService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<ArticleDto>>> = this.httpClient.get(`${this.basePath}/article`, headers);
-        if (observe == 'body') {
-               return response.map(httpResponse => <Array<ArticleDto>>(httpResponse.response));
+        if (observe === 'body') {
+               return response.map(httpResponse => httpResponse.response);
         }
         return response;
     }
