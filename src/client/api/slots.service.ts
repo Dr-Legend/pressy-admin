@@ -28,7 +28,7 @@ import { SlotDto } from '../model/slotDto';
 
 @injectable()
 export class SlotsService {
-    private basePath: string = 'https://pressy-admin-api-dev.herokuapp.com/v1';
+    private basePath: string = 'http://localhost:3002/v1';
 
     constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
         @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {

@@ -5,22 +5,9 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../../states/app-state';
 import { Container } from 'inversify';
 import TextField from "@material-ui/core/TextField";
-import { createStyles } from '@material-ui/styles';
-import { Theme, withStyles, Button } from '@material-ui/core';
+import { withStyles, Button } from '@material-ui/core';
+import styles from './styles';
 
-let styles = (theme: Theme) => createStyles({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-});
 
 type ILoginProps = {
   classes: any;
