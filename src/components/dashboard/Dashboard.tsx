@@ -4,33 +4,96 @@ import { AppState } from '../../states/app-state';
 import { Container } from 'inversify';
 import { IAction } from '../../actions';
 import { connect } from 'react-redux';
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
+import { Link, Router, Route } from "react-router-dom";
+import { createBrowserHistory } from 'history';
+import Drivers from './Drivers';
+import Orders from './Orders';
+import Members from './Members';
+import Articles from './Articles';
+
+type IDashboardState = {
+  dropDownOpen: boolean;
+}
 
 type IDashboardProps = {
   classes: any;
 }
 
-class DashboardComponent extends React.Component<IDashboardProps> {
+class DashboardComponent extends React.Component<IDashboardProps, IDashboardState> {
+
+  constructor(props: IDashboardProps) {
+    super(props);
+    this.state = {
+      dropDownOpen: false
+    };
+  }
 
   public render() {
     let { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Pressy Administration
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <Router
+        history={createBrowserHistory()}>
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Link 
+                className={classes.logoLink}
+                to="/">
+                <Typography variant="h6" className={classes.title}>
+                  Pressy Admin
+                </Typography>
+              </Link>
+              <Link
+                className={classes.appbarButtonTitle}
+                to="/members">
+                <Button
+                  className={classes.appbarButton}
+                  variant="text"
+                  color="secondary">
+                  Membres
+                </Button>
+              </Link>
+              <Link
+                className={classes.appbarButtonTitle}
+                to="/orders">
+                <Button
+                  className={classes.appbarButton}
+                  variant="text"
+                  color="secondary">
+                  Commandes
+                </Button>
+              </Link>
+              <Link
+                className={classes.appbarButtonTitle} 
+                to="/drivers">
+                <Button
+                  className={classes.appbarButton}
+                  variant="text"
+                  color="secondary">
+                  Chauffeurs
+                </Button>
+              </Link>
+              <Link
+                className={classes.appbarButtonTitle}
+                to="/articles">
+                <Button
+                  className={classes.appbarButton}
+                  variant="text"
+                  color="secondary">
+                  Articles &#38; Tarification 
+                </Button>
+              </Link>
+            </Toolbar>
+          </AppBar>
+          <Route exact component={Drivers} path="/drivers" />
+          <Route exact component={Orders} path="/orders" />
+          <Route exact component={Members} path="/members" />
+          <Route exact component={Articles} path="/articles" />
+        </div>
+      </Router>
     );
   }
 

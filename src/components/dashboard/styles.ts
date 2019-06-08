@@ -10,8 +10,21 @@ let styles = (theme: Theme) => createStyles({
     marginRight: 16,
   },
   title: {
-    flexGrow: 1,
+    marginRight: 36,
+    marginLeft: 36,
+    color: theme.palette.primary.contrastText,
+    textDecoration: "none"
   },
+  logoLink: {
+    textDecoration: "none"
+  },
+  appbarButton: {
+    marginLeft: 8, 
+    marginRight: 8
+  },
+  appbarButtonTitle: {
+    textDecoration: "none"
+  }
 });
 
 export default styles;
