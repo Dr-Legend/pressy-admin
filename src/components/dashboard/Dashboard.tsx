@@ -13,6 +13,7 @@ import Drivers from './Drivers';
 import Orders from './Orders';
 import Members from './Members';
 import Articles from './Articles';
+import MemberProfile from './Members/MemberProfile';
 
 type IDashboardState = {
   dropDownOpen: boolean;
@@ -91,6 +92,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
           <Route exact component={Drivers} path="/drivers" />
           <Route exact component={Orders} path="/orders" />
           <Route exact component={Members} path="/members" />
+          <Route component={MemberProfile} path="/members/:id" />
           <Route exact component={Articles} path="/articles" />
         </div>
       </Router>

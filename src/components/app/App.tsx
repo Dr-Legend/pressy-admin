@@ -25,6 +25,9 @@ let styles = createStyles({
     display: "grid",
     placeItems: "center",
     height: "100vh"
+  },
+  '& a': {
+    textDecoration: "none"
   }
 });
 

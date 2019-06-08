@@ -34,6 +34,9 @@ let styles = (theme: Theme) => createStyles({
   },
   searchBarInput: {
     margin: 8
+  },
+  actionButton: {
+    textDecoration: "none"
   }
 });
 

@@ -5,11 +5,13 @@ import { AppState } from '../../../states/app-state';
 import { Container } from 'inversify';
 import { connect } from 'react-redux';
 import { MemberInfoDto } from '../../../client/model/memberInfoDto';
-import { CircularProgress, Table, TableHead, TableRow, TableCell, TableBody, Paper, FormControl, Input, InputAdornment } from '@material-ui/core';
+import { CircularProgress, Table, TableHead, TableRow, TableCell, TableBody, Paper, FormControl, Input, InputAdornment, Fab, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import styles, { inputTheme } from './styles';
 import SearchIcon from "@material-ui/icons/Search";
+import Icon from '@material-ui/core/Icon';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 type IMembersProps = {
   classes: any;
@@ -60,6 +62,7 @@ class MembersComponent extends React.Component<IMembersProps> {
                     <TableCell align="right">Prénom</TableCell>
                     <TableCell align="right">Email</TableCell>
                     <TableCell align="right">Numéro de téléphone</TableCell>
+                    <TableCell align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,6 +77,17 @@ class MembersComponent extends React.Component<IMembersProps> {
                           <TableCell align="right">{member.firstName}</TableCell>
                           <TableCell align="right">{member.email}</TableCell>
                           <TableCell align="right">{member.phone}</TableCell>
+                          <TableCell align="right">
+                            <Link
+                              className={classes.actionButton}
+                              to={`/members/${member.id}`}>
+                              <Button
+                                variant="text"
+                                color="primary">
+                                voir
+                              </Button>
+                            </Link>
+                          </TableCell>
                         </TableRow>
                       );
                     })
