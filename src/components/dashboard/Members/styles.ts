@@ -1,12 +1,11 @@
 import { createStyles, Theme, createMuiTheme } from "@material-ui/core";
-import { orange } from "@material-ui/core/colors";
 
 export let inputTheme = createMuiTheme({
   palette: {
     primary: {
-      main: orange[500],
-      dark: orange[500],
-      light: orange[500]
+      main: "#F59423",
+      dark: "#F59423",
+      light: "#F59423"
     }
   }
 });
@@ -37,6 +36,9 @@ let styles = (theme: Theme) => createStyles({
   },
   actionButton: {
     textDecoration: "none"
+  },
+  margin: {
+    margin: theme.spacing(1),
   }
 });
 

@@ -9,14 +9,13 @@ import { initializeAuth } from '../../actions/auth-actions';
 import { CircularProgress, createMuiTheme } from '@material-ui/core';
 import Dashboard from '../dashboard/Dashboard';
 import { MuiThemeProvider, createStyles } from '@material-ui/core/styles';
-import { orange } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/styles';
 
 let ContainerContext = createContext(null);
 let theme = createMuiTheme({
   palette: {
     primary: {
-      main: orange[500]
+      main: "#F59423"
     }
   }
 });

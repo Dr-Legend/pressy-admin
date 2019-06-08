@@ -24,6 +24,9 @@ let styles = (theme: Theme) => createStyles({
   },
   appbarButtonTitle: {
     textDecoration: "none"
+  },
+  space: {
+    flexGrow: 1
   }
 });
 

@@ -54,4 +54,20 @@ export class MembersService {
         return response;
     }
 
+    public memberGetMember(id: number, observe?: 'body', headers?: Headers): Observable<MemberInfoDto>;
+    public memberGetMember(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<MemberInfoDto>>;
+    public memberGetMember(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        // authentication (Bearer) required
+        if (this.APIConfiguration.apiKeys["Authorization"]) {
+            headers['Authorization'] = this.APIConfiguration.apiKeys["Authorization"];
+        }
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<Array<MemberInfoDto>>> = this.httpClient.get(`${this.basePath}/member/${id}`, headers);
+        if (observe === 'body') {
+            return response.map(httpResponse => httpResponse.response);
+        }
+        return response;
+    }
+
 }

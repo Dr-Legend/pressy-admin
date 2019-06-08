@@ -5,11 +5,10 @@ import { AppState } from '../../../states/app-state';
 import { Container } from 'inversify';
 import { connect } from 'react-redux';
 import { MemberInfoDto } from '../../../client/model/memberInfoDto';
-import { CircularProgress, Table, TableHead, TableRow, TableCell, TableBody, Paper, FormControl, Input, InputAdornment, Fab, Button } from '@material-ui/core';
+import { CircularProgress, Table, TableHead, TableRow, TableCell, TableBody, Paper, FormControl, Input, InputAdornment, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import styles, { inputTheme } from './styles';
 import SearchIcon from "@material-ui/icons/Search";
-import Icon from '@material-ui/core/Icon';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 

@@ -14,6 +14,8 @@ import Orders from './Orders';
 import Members from './Members';
 import Articles from './Articles';
 import MemberProfile from './Members/MemberProfile';
+import Slots from './Slots';
+import { logout } from '../../actions/auth-actions/login-actions';
 
 type IDashboardState = {
   dropDownOpen: boolean;
@@ -21,6 +23,7 @@ type IDashboardState = {
 
 type IDashboardProps = {
   classes: any;
+  logout(): void;
 }
 
 class DashboardComponent extends React.Component<IDashboardProps, IDashboardState> {
@@ -33,7 +36,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
   }
 
   public render() {
-    let { classes } = this.props;
+    let { classes, logout } = this.props;
     return (
       <Router
         history={createBrowserHistory()}>
@@ -87,8 +90,27 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
                   Articles &#38; Tarification 
                 </Button>
               </Link>
+              <Link
+                className={classes.appbarButtonTitle}
+                to="/slots">
+                <Button
+                  className={classes.appbarButton}
+                  variant="text"
+                  color="primary">
+                  Créneaux
+                </Button>
+              </Link>
+              <div className={classes.space}></div>
+              <Button
+                className={classes.appbarButton}
+                variant="text"
+                color="primary"
+                onClick={logout}>
+                Se déconnecter
+              </Button>
             </Toolbar>
           </AppBar>
+          <Route exact component={Slots} path="/slots" />
           <Route exact component={Drivers} path="/drivers" />
           <Route exact component={Orders} path="/orders" />
           <Route exact component={Members} path="/members" />
@@ -104,6 +126,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
 function mapDispatchToProps(dispatch: ThunkDispatch<AppState, Container, IAction>, ownProps: IDashboardProps): IDashboardProps {
   return {
     ...ownProps,
+    logout: () => dispatch(logout())
   };
 }
 

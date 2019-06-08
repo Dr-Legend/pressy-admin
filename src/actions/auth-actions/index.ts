@@ -29,7 +29,7 @@ interface SetLoggedOutAction extends IAction {
 }
 
 type AuthAsyncAction = ThunkAction<void, AppState, Container, AuthAction>;
-let ACCESS_TOKEN_STORAGE_KEY = "@PRESSY/ACCESS_TOKEN";
+export let ACCESS_TOKEN_STORAGE_KEY = "@PRESSY/ACCESS_TOKEN";
 
 export function initializeAuth(): AuthAsyncAction {
   return async (dispatch, _, container) => {
@@ -83,10 +83,11 @@ export function login(): AuthAsyncAction {
       })
       .toPromise();
       localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, JSON.stringify(response));
+      let apiConfiguration = container.get<IAPIConfiguration>(TYPES.IAPIConfiguration);
+      apiConfiguration.apiKeys = {
+        Authorization: `Bearer ${response.accessToken}`
+      };
       dispatch({ type: "SET_LOGGED_IN", accessToken: response.accessToken });
-      container
-        .get<IAPIConfiguration>(TYPES.IAPIConfiguration)
-        .accessToken = response.accessToken;
     } catch (exception) {
       alert((exception as AxiosError).response.data.message);
     } finally {
