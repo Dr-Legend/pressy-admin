@@ -52,7 +52,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
                 <Button
                   className={classes.appbarButton}
                   variant="text"
-                  color="secondary">
+                  color="primary">
                   Membres
                 </Button>
               </Link>
@@ -62,7 +62,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
                 <Button
                   className={classes.appbarButton}
                   variant="text"
-                  color="secondary">
+                  color="primary">
                   Commandes
                 </Button>
               </Link>
@@ -72,7 +72,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
                 <Button
                   className={classes.appbarButton}
                   variant="text"
-                  color="secondary">
+                  color="primary">
                   Chauffeurs
                 </Button>
               </Link>
@@ -82,7 +82,7 @@ class DashboardComponent extends React.Component<IDashboardProps, IDashboardStat
                 <Button
                   className={classes.appbarButton}
                   variant="text"
-                  color="secondary">
+                  color="primary">
                   Articles &#38; Tarification 
                 </Button>
               </Link>

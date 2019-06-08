@@ -21,15 +21,15 @@ import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
 import { CreatePersonRequestDto } from '../model/createPersonRequestDto';
+import { TYPES } from "../variables";
 
 @injectable()
 export class DriversService {
-    private basePath: string = 'http://localhost:3002/v1';
-
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
-        if(this.APIConfiguration.basePath)
-            this.basePath = this.APIConfiguration.basePath;
+    
+    @inject(TYPES.IApiHttpClient) private httpClient: IHttpClient;
+    @inject(TYPES.IAPIConfiguration) private APIConfiguration: IAPIConfiguration;
+    get basePath(): string {
+        return this.APIConfiguration.basePath || 'http://localhost:3002/v1';
     }
 
     /**

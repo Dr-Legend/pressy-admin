@@ -1,16 +1,7 @@
-import { AuthState } from "../../states/auth-state";
+import { AuthState, initialState } from "../../states/auth-state";
 import { AuthAction } from "../../actions/auth-actions";
 import { loginReducer } from "./login-reducer";
 
-let initialState: AuthState = {
-  isAuthenticated: false,
-  isLoading: false,
-  accessToken: undefined,
-  login: {
-    password: undefined,
-    email: undefined
-  }
-};
 
 export function authReducer(state: AuthState = initialState, action: AuthAction): AuthState {
   switch (action.type) {

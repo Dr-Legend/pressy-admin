@@ -42,11 +42,15 @@ export function initializeAuth(): AuthAsyncAction {
     }
     let authCredentials: AuthCredentialsDto = JSON.parse(accessToken);
     let authService = container.get<AuthenticationService>(TYPES.AuthenticationService);
-    let credentials = await authService.authRefreshCredentials({
+    let freshCredentials = await authService.authRefreshCredentials({
       refreshToken: authCredentials.refreshToken
     }).toPromise();
+    let apiConfiguration = container.get<IAPIConfiguration>(TYPES.IAPIConfiguration);
+    apiConfiguration.apiKeys = {
+      Authorization: `Bearer ${freshCredentials.accessToken}`
+    };
     dispatch({ type: "SET_AUTH_LOADING", isLoading: false });
-    dispatch({ type: "SET_LOGGED_IN", accessToken: credentials.accessToken });
+    dispatch({ type: "SET_LOGGED_IN", accessToken: freshCredentials.accessToken });
   }
 }
 

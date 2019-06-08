@@ -1,10 +1,6 @@
-import { LoginState } from "../../states/auth-state/login-state";
+import { LoginState, initialState } from "../../states/auth-state/login-state";
 import { LoginAction } from "../../actions/auth-actions/login-actions";
 
-let initialState: LoginState = {
-  password: undefined,
-  email: undefined
-};
 
 export function loginReducer(state: LoginState = initialState, action: LoginAction): LoginState {
   switch (action.type) {
