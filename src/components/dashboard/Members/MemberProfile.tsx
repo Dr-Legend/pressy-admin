@@ -125,7 +125,7 @@ class MemberProfileComponent extends React.Component<IMemberProfileProps> {
                       </Grid>
                       {
                         index < member.addresses.length - 1 &&
-                        <Grid item xs={11}>
+                        <Grid item key={address.id} xs={11}>
                           <FormControl fullWidth className={classes.margin}>
                             <Divider />
                           </FormControl>

@@ -30,7 +30,7 @@ export class MembersService {
     @inject(TYPES.IApiHttpClient) private httpClient: IHttpClient;
     @inject(TYPES.IAPIConfiguration) private APIConfiguration: IAPIConfiguration;
     get basePath(): string {
-        return this.APIConfiguration.basePath || 'http://localhost:3002/v1';
+        return this.APIConfiguration.basePath || 'https://pressy-admin-api-dev.herokuapp.com/v1';
     }
 
     /**
