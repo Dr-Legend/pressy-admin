@@ -8,7 +8,8 @@ import { TYPES } from "../../client/variables";
 
 export type SlotsAction = SlotsSetSlotTypeAction
   | SlotsSetStartDateAction
-  | SlotsSetCreatedSnackbarVisibleAction;
+  | SlotsSetCreatedSnackbarVisibleAction
+  | SlotsSetDriverCountAction;
 
 
 interface SlotsSetStartDateAction extends IAction {
@@ -26,6 +27,11 @@ interface SlotsSetCreatedSnackbarVisibleAction extends IAction {
   isVisible: boolean;
 }
 
+interface SlotsSetDriverCountAction extends IAction {
+  type: "SLOTS_SET_DRIVER_COUNT_ACTION";
+  driverCount: number;
+}
+
 type SlotsAsyncAction = ThunkAction<void, AppState, Container, SlotsAction>; 
 
 export function setSlotStartDate(startDate: string): SlotsAction {
@@ -36,14 +42,18 @@ export function setSlotTypeDate(type: string): SlotsAction {
   return { type: "SLOTS_SET_SLOT_TYPE_ACTION", sloyType: type };
 }
 
+export function setDriverCount(count: number): SlotsAction {
+  return { type: "SLOTS_SET_DRIVER_COUNT_ACTION", driverCount: count };
+}
+
 export function createSlot(): SlotsAsyncAction {
   return async (dispatch, getState, container) => {
     let slotsService = container.get<SlotsService>(TYPES.SlotsService);
-    let { startDate, slotType } = getState().slots;
+    let { startDate, slotType, driverCount } = getState().slots;
     await slotsService.slotCreateSlot({
       startDate: startDate,
       type: slotType === "standard" ? "1" : "2",
-      availableDrivers: 5 // TODO: Add a text field to pass this a parameter
+      availableDrivers: driverCount // TODO: Add a text field to pass this a parameter
     }).toPromise();
     dispatch({ type: "SLOTS_SET_CRAETED_SNACKBAR_VISIBLE_ACION", isVisible: true });
     setTimeout(() => {

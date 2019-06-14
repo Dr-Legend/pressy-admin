@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/styles';
 import { styles, inputTheme } from './styles';
 import moment from 'moment';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { SlotsAction, setSlotStartDate, setSlotTypeDate as setSlotType, createSlot } from '../../../actions/slots-actions';
+import { SlotsAction, setSlotStartDate, setSlotTypeDate as setSlotType, createSlot, setDriverCount } from '../../../actions/slots-actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from '../../../states/app-state';
 import { connect } from 'react-redux';
@@ -16,9 +16,11 @@ type ISlotsProps = {
   startDate: Date;
   slotType: string;
   isSlotCreatedSnackbarOpen: boolean;
+  driverCount: number;
   // Actions
   setSlotStartDate(date: string): void;
   setSlotType(type: string): void;
+  setDriverCount(count: number): void;
   createSlot(): void;
 }
 
@@ -29,7 +31,7 @@ class SlotsComponent extends React.Component<ISlotsProps> {
   }
 
   public render() {
-    let { classes, startDate, slotType, setSlotStartDate, setSlotType, createSlot, isSlotCreatedSnackbarOpen } = this.props;
+    let { classes, startDate, slotType, driverCount, setDriverCount, setSlotStartDate, setSlotType, createSlot, isSlotCreatedSnackbarOpen } = this.props;
     return (
       <div>
         <Paper className={classes.paper}>
@@ -56,6 +58,17 @@ class SlotsComponent extends React.Component<ISlotsProps> {
               <option>standard</option>
               <option>express</option>
             </NativeSelect>
+            <TextField
+              fullWidth
+              type="numeric"
+              label="Nombre de commandes"
+              className={classes.textField}
+              value={driverCount}
+              onChange={(event) => setDriverCount(Number(event.target.value))}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
           </MuiThemeProvider>
           <Button
             className={classes.button}
@@ -87,17 +100,19 @@ function mapDispatchToProps(dispatch: ThunkDispatch<AppState, Container, SlotsAc
     ...ownProps,
     setSlotStartDate: startDate => dispatch(setSlotStartDate(startDate)),
     setSlotType: slotType => dispatch(setSlotType(slotType)),
-    createSlot: () => dispatch(createSlot())
+    createSlot: () => dispatch(createSlot()),
+    setDriverCount: count => dispatch(setDriverCount(count))
   };
 }
 
 function mapStateToProps(state: AppState, ownProperties: ISlotsProps): ISlotsProps {
-  let { isSlotCreatedSnackbarOpen, startDate, slotType } = state.slots;
+  let { isSlotCreatedSnackbarOpen, startDate, slotType, driverCount } = state.slots;
   return {
     ...ownProperties,
     startDate,
     slotType,
-    isSlotCreatedSnackbarOpen
+    isSlotCreatedSnackbarOpen,
+    driverCount
   };
 }
 

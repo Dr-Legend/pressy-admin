@@ -6,7 +6,6 @@ import { AuthCredentialsDto } from "../../client/model/authCredentialsDto";
 import { AuthenticationService } from "../../client/api/authentication.service";
 import { TYPES } from "../../client/variables";
 import { LoginAction } from "./login-actions";
-import { AxiosError } from "axios";
 import { IAPIConfiguration } from "../../client/IAPIConfiguration";
 
 export type AuthAction = SetAuthLoadingAction
@@ -89,7 +88,7 @@ export function login(): AuthAsyncAction {
       };
       dispatch({ type: "SET_LOGGED_IN", accessToken: response.accessToken });
     } catch (exception) {
-      alert((exception as AxiosError).response.data.message);
+      alert(JSON.stringify(exception, null, 2));
     } finally {
       dispatch({ type: "SET_AUTH_LOADING", isLoading: false });
     }

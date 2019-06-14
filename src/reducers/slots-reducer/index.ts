@@ -20,6 +20,11 @@ export function slotsReducer(state: SlotsState = initialState, action: SlotsActi
         ...state,
         isSlotCreatedSnackbarOpen: action.isVisible
       };
+    case "SLOTS_SET_DRIVER_COUNT_ACTION":
+      return {
+        ...state,
+        driverCount: action.driverCount
+      };
   }
   return state;
 }
