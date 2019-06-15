@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/pressy-admin/static/js/main.ec0bd6ef.chunk.js",
+    "main.js.map": "/pressy-admin/static/js/main.ec0bd6ef.chunk.js.map",
+    "runtime~main.js": "/pressy-admin/static/js/runtime~main.dc289da3.js",
+    "runtime~main.js.map": "/pressy-admin/static/js/runtime~main.dc289da3.js.map",
+    "static/js/2.10cc9c84.chunk.js": "/pressy-admin/static/js/2.10cc9c84.chunk.js",
+    "static/js/2.10cc9c84.chunk.js.map": "/pressy-admin/static/js/2.10cc9c84.chunk.js.map",
+    "index.html": "/pressy-admin/index.html",
+    "precache-manifest.196a4232a46eb5eb19e092b4bf1e2e57.js": "/pressy-admin/precache-manifest.196a4232a46eb5eb19e092b4bf1e2e57.js",
+    "service-worker.js": "/pressy-admin/service-worker.js"
+  }
+}
