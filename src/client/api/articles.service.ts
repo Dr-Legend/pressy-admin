@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -40,9 +37,9 @@ export class ArticlesService {
      * @param request 
      
      */
-    public articleCreateArticle(request: CreateArticleRequestDto, observe?: 'body', headers?: Headers): Observable<ArticleDto>;
-    public articleCreateArticle(request: CreateArticleRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<ArticleDto>>;
-    public articleCreateArticle(request: CreateArticleRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async articleCreateArticle(request: CreateArticleRequestDto, headers?: Headers): Promise<ArticleDto>;
+    public async articleCreateArticle(request: CreateArticleRequestDto, headers?: Headers): Promise<HttpResponse<ArticleDto>>;
+    public async articleCreateArticle(request: CreateArticleRequestDto, headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling articleCreateArticle.');
         }
@@ -54,11 +51,8 @@ export class ArticlesService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<ArticleDto>> = this.httpClient.post(`${this.basePath}/article`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/article`, request , headers);
+        return response.response;
     }
 
 
@@ -67,20 +61,17 @@ export class ArticlesService {
      * 
      
      */
-    public articleGetAllArticles(observe?: 'body', headers?: Headers): Observable<Array<ArticleDto>>;
-    public articleGetAllArticles(observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<ArticleDto>>>;
-    public articleGetAllArticles(observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public articleGetAllArticles(headers?: Headers): Promise<Array<ArticleDto>>;
+    public articleGetAllArticles(headers?: Headers): Promise<HttpResponse<Array<ArticleDto>>>;
+    public async articleGetAllArticles(headers: Headers = {}): Promise<any> {
         // authentication (Bearer) required
         if (this.APIConfiguration.apiKeys["Authorization"]) {
             headers['Authorization'] = this.APIConfiguration.apiKeys["Authorization"];
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<ArticleDto>>> = this.httpClient.get(`${this.basePath}/article`, headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.get(`${this.basePath}/article`, headers);
+        return response.response;
     }
 
 }

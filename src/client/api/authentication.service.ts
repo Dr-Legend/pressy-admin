@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -41,9 +38,9 @@ export class AuthenticationService {
      * @param request 
      
      */
-    public authLogin(request: LoginRequestDto, observe?: 'body', headers?: Headers): Observable<AuthCredentialsDto>;
-    public authLogin(request: LoginRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<AuthCredentialsDto>>;
-    public authLogin(request: LoginRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async authLogin(request: LoginRequestDto, observe?: 'body', headers?: Headers): Promise<AuthCredentialsDto>;
+    public async authLogin(request: LoginRequestDto, observe?: 'response', headers?: Headers): Promise<HttpResponse<AuthCredentialsDto>>;
+    public async authLogin(request: LoginRequestDto, observe: any = 'body', headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling authLogin.');
         }
@@ -51,11 +48,8 @@ export class AuthenticationService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<AuthCredentialsDto>> = this.httpClient.post(`${this.basePath}/auth/login`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/auth/login`, request, headers);
+        return response.response;
     }
 
 
@@ -65,9 +59,9 @@ export class AuthenticationService {
      * @param request 
      
      */
-    public authRefreshCredentials(request: RefreshCredentialsRequestDto, observe?: 'body', headers?: Headers): Observable<AuthCredentialsDto>;
-    public authRefreshCredentials(request: RefreshCredentialsRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<AuthCredentialsDto>>;
-    public authRefreshCredentials(request: RefreshCredentialsRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async authRefreshCredentials(request: RefreshCredentialsRequestDto, observe?: 'body', headers?: Headers): Promise<AuthCredentialsDto>;
+    public async authRefreshCredentials(request: RefreshCredentialsRequestDto, observe?: 'response', headers?: Headers): Promise<HttpResponse<AuthCredentialsDto>>;
+    public async authRefreshCredentials(request: RefreshCredentialsRequestDto, observe: any = 'body', headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling authRefreshCredentials.');
         }
@@ -75,11 +69,8 @@ export class AuthenticationService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<AuthCredentialsDto>> = this.httpClient.post(`${this.basePath}/auth/refresh`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/auth/refresh`, request , headers);
+        return response.response;
     }
 
 }

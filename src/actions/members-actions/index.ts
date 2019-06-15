@@ -34,7 +34,7 @@ export function loadMembers(): MembersAsyncAction {
   return async (dispatch, _, container) => {
     dispatch({ type: "MEMBERS_SET_LOADING_ACTION", isLoading: true });
     let membersService = container.get<MembersService>(TYPES.MembersService);
-    let members = await membersService.memberGetAllMembers().toPromise();
+    let members = await membersService.memberGetAllMembers();
     members = members.sort((lhs, rhs) => lhs.id - rhs.id);
     dispatch({ type: "MEMBERS_SET_LOADING_ACTION", isLoading: false });
     dispatch({ type: "MEMBERS_SET_MEMBER_LIST_ACTION", members });

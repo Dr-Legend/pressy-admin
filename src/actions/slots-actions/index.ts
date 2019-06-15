@@ -54,7 +54,7 @@ export function createSlot(): SlotsAsyncAction {
       startDate: startDate,
       type: slotType === "standard" ? "1" : "2",
       availableDrivers: driverCount // TODO: Add a text field to pass this a parameter
-    }).toPromise();
+    });
     dispatch({ type: "SLOTS_SET_CRAETED_SNACKBAR_VISIBLE_ACION", isVisible: true });
     setTimeout(() => {
       dispatch({ type: "SLOTS_SET_CRAETED_SNACKBAR_VISIBLE_ACION", isVisible: false });

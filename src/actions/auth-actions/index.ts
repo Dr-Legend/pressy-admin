@@ -43,7 +43,7 @@ export function initializeAuth(): AuthAsyncAction {
     let authService = container.get<AuthenticationService>(TYPES.AuthenticationService);
     let freshCredentials = await authService.authRefreshCredentials({
       refreshToken: authCredentials.refreshToken
-    }).toPromise();
+    });
     let apiConfiguration = container.get<IAPIConfiguration>(TYPES.IAPIConfiguration);
     apiConfiguration.apiKeys = {
       Authorization: `Bearer ${freshCredentials.accessToken}`
@@ -79,18 +79,27 @@ export function login(): AuthAsyncAction {
       let response = await authService.authLogin({
         email: email,
         password: password
-      })
-      .toPromise();
+      });
+      console.log(response);
       localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, JSON.stringify(response));
+      console.log(response);
       let apiConfiguration = container.get<IAPIConfiguration>(TYPES.IAPIConfiguration);
+      console.log(response);
       apiConfiguration.apiKeys = {
         Authorization: `Bearer ${response.accessToken}`
       };
+      console.log(response);
       dispatch({ type: "SET_LOGGED_IN", accessToken: response.accessToken });
+      console.log(response);
     } catch (exception) {
+      console.log(exception);
       alert(JSON.stringify(exception, null, 2));
+      console.log(exception);
     } finally {
+      console.log("finally");
       dispatch({ type: "SET_AUTH_LOADING", isLoading: false });
+      console.log("finally");
     }
+    console.log("done");
   }
 }

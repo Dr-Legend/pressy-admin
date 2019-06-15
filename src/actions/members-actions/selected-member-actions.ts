@@ -58,7 +58,7 @@ export function loadMemberProfile(id: string): SelectedMemberAsyncAction {
     }
     try {
       let membersService = container.get<MembersService>(TYPES.MembersService);
-      member = await membersService.memberGetMember(Number(id)).toPromise();
+      member = await membersService.memberGetMember(Number(id));
     } catch {
       dispatch({ type: "SELECTED_MEMBER_SET_LOADING_ACTION", isLoading: false });
       alert(`Membre nº ${id} non trouvé`);

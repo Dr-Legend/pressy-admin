@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -41,9 +38,9 @@ export class OrdersService {
      * @param request 
      
      */
-    public orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe?: 'body', headers?: Headers): Observable<any>;
-    public orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe?: 'body', headers?: Headers): Promise<any>;
+    public async orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe?: 'response', headers?: Headers): Promise<HttpResponse<any>>;
+    public async orderAssignDriverToOrder(orderMissionType: string, request: AssignOrderDriverRequestDto, observe: any = 'body', headers: Headers = {}): Promise<any> {
         if (!orderMissionType){
             throw new Error('Required parameter orderMissionType was null or undefined when calling orderAssignDriverToOrder.');
         }
@@ -59,11 +56,9 @@ export class OrdersService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/order/assign-driver/${encodeURIComponent(String(orderMissionType))}`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/order/assign-driver/${encodeURIComponent(String(orderMissionType))}`, request , headers);
+        return response.response;
+        
     }
 
 
@@ -73,9 +68,9 @@ export class OrdersService {
      * @param request 
      
      */
-    public orderEditOrder(request: EditOrderRequestDto, observe?: 'body', headers?: Headers): Observable<OrderDto>;
-    public orderEditOrder(request: EditOrderRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<OrderDto>>;
-    public orderEditOrder(request: EditOrderRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async orderEditOrder(request: EditOrderRequestDto, observe?: 'body', headers?: Headers): Promise<OrderDto>;
+    public async orderEditOrder(request: EditOrderRequestDto, observe?: 'response', headers?: Headers): Promise<HttpResponse<OrderDto>>;
+    public async orderEditOrder(request: EditOrderRequestDto, observe: any = 'body', headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling orderEditOrder.');
         }
@@ -87,11 +82,8 @@ export class OrdersService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<OrderDto>> = this.httpClient.patch(`${this.basePath}/order`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.patch(`${this.basePath}/order`, request , headers);
+        return response.response;
     }
 
 
@@ -102,9 +94,9 @@ export class OrdersService {
      * @param page 
      
      */
-    public orderGetOrders(length?: number, page?: number, observe?: 'body', headers?: Headers): Observable<Array<OrderDto>>;
-    public orderGetOrders(length?: number, page?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<OrderDto>>>;
-    public orderGetOrders(length?: number, page?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async orderGetOrders(length?: number, page?: number, observe?: 'body', headers?: Headers): Promise<Array<OrderDto>>;
+    public async orderGetOrders(length?: number, page?: number, observe?: 'response', headers?: Headers): Promise<HttpResponse<Array<OrderDto>>>;
+    public async orderGetOrders(length?: number, page?: number, observe: any = 'body', headers: Headers = {}): Promise<any> {
         let queryParameters: string[] = [];
         if (length !== undefined) {
             queryParameters.push("length="+encodeURIComponent(String(length)));
@@ -119,10 +111,7 @@ export class OrdersService {
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<OrderDto>>> = this.httpClient.get(`${this.basePath}/order?${queryParameters.join('&')}`, headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
+        let response = await this.httpClient.get(`${this.basePath}/order?${queryParameters.join('&')}`, headers);
         return response;
     }
 
@@ -133,9 +122,9 @@ export class OrdersService {
      * @param id 
      
      */
-    public orderReportAbsent(id: number, observe?: 'body', headers?: Headers): Observable<any>;
-    public orderReportAbsent(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public orderReportAbsent(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async orderReportAbsent(id: number, observe?: 'body', headers?: Headers): Promise<any>;
+    public async orderReportAbsent(id: number, observe?: 'response', headers?: Headers): Promise<HttpResponse<any>>;
+    public async orderReportAbsent(id: number, observe: any = 'body', headers: Headers = {}): Promise<any> {
         if (!id){
             throw new Error('Required parameter id was null or undefined when calling orderReportAbsent.');
         }
@@ -146,11 +135,8 @@ export class OrdersService {
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/order/apply-absent-penalty/${encodeURIComponent(String(id))}`, headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/order/apply-absent-penalty/${encodeURIComponent(String(id))}`, headers);
+        return response.response;
     }
 
 }

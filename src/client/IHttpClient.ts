@@ -1,13 +1,12 @@
-import { Observable } from "rxjs/Observable";
 import HttpResponse from "./HttpResponse";
 import { Headers } from "./Headers";
 
 interface IHttpClient {
-    get(url:string, headers?: Headers):Observable<HttpResponse>
-    post(url:string, body:{}|FormData, headers?: Headers):Observable<HttpResponse>
-    put(url:string, body:{}, headers?: Headers):Observable<HttpResponse>
-    patch(url: string, body: {}, headers?: Headers): Observable<HttpResponse>
-    delete(url: string, body: {}, headers?: Headers):Observable<HttpResponse>
+    get(url:string, headers?: Headers):Promise<HttpResponse>
+    post(url:string, body:{}|FormData, headers?: Headers):Promise<HttpResponse>
+    put(url:string, body:{}, headers?: Headers):Promise<HttpResponse>
+    patch(url: string, body: {}, headers?: Headers): Promise<HttpResponse>
+    delete(url: string, body: {}, headers?: Headers):Promise<HttpResponse>
 }
 
 export default IHttpClient

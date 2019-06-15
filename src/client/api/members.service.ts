@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -38,36 +35,30 @@ export class MembersService {
      * 
      
      */
-    public memberGetAllMembers(observe?: 'body', headers?: Headers): Observable<Array<MemberInfoDto>>;
-    public memberGetAllMembers(observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<MemberInfoDto>>>;
-    public memberGetAllMembers(observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async memberGetAllMembers(observe?: 'body', headers?: Headers): Promise<Array<MemberInfoDto>>;
+    public async memberGetAllMembers(observe?: 'response', headers?: Headers): Promise<HttpResponse<Array<MemberInfoDto>>>;
+    public async memberGetAllMembers(observe: any = 'body', headers: Headers = {}): Promise<any> {
         // authentication (Bearer) required
         if (this.APIConfiguration.apiKeys["Authorization"]) {
             headers['Authorization'] = this.APIConfiguration.apiKeys["Authorization"];
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<MemberInfoDto>>> = this.httpClient.get(`${this.basePath}/member`, headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.get(`${this.basePath}/member`, headers);
+        return response.response;
     }
 
-    public memberGetMember(id: number, observe?: 'body', headers?: Headers): Observable<MemberInfoDto>;
-    public memberGetMember(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<MemberInfoDto>>;
-    public memberGetMember(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async memberGetMember(id: number, headers?: Headers): Promise<MemberInfoDto>;
+    public async memberGetMember(id: number, headers?: Headers): Promise<HttpResponse<MemberInfoDto>>;
+    public async memberGetMember(id: number, headers: Headers = {}): Promise<any> {
         // authentication (Bearer) required
         if (this.APIConfiguration.apiKeys["Authorization"]) {
             headers['Authorization'] = this.APIConfiguration.apiKeys["Authorization"];
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<MemberInfoDto>>> = this.httpClient.get(`${this.basePath}/member/${id}`, headers);
-        if (observe === 'body') {
-            return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.get(`${this.basePath}/member/${id}`, headers);
+        return response.response;
     }
 
 }

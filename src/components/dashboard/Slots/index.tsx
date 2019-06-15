@@ -49,7 +49,7 @@ class SlotsComponent extends React.Component<ISlotsProps> {
                 shrink: true,
               }}
             />
-            <InputLabel shrink className={classes.textField} htmlFor="slot-type-select">Name</InputLabel>
+            <InputLabel shrink className={classes.textField} htmlFor="slot-type-select">Type du créneau</InputLabel>
             <NativeSelect
               fullWidth
               id="slot-type-select"

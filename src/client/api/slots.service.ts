@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -42,9 +39,9 @@ export class SlotsService {
      * @param request 
      
      */
-    public slotCreateSlot(request: CreateSlotRequestDto, observe?: 'body', headers?: Headers): Observable<SlotDto>;
-    public slotCreateSlot(request: CreateSlotRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<SlotDto>>;
-    public slotCreateSlot(request: CreateSlotRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async slotCreateSlot(request: CreateSlotRequestDto, headers?: Headers): Promise<SlotDto>;
+    public async slotCreateSlot(request: CreateSlotRequestDto, headers?: Headers): Promise<HttpResponse<SlotDto>>;
+    public async slotCreateSlot(request: CreateSlotRequestDto, headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling slotCreateSlot.');
         }
@@ -56,11 +53,8 @@ export class SlotsService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<SlotDto>> = this.httpClient.post(`${this.basePath}/slot`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/slot`, request , headers);
+        return response.response;
     }
 
 
@@ -70,9 +64,9 @@ export class SlotsService {
      * @param request 
      
      */
-    public slotDeleteSlot(request: DeleteSlotRequest, observe?: 'body', headers?: Headers): Observable<any>;
-    public slotDeleteSlot(request: DeleteSlotRequest, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public slotDeleteSlot(request: DeleteSlotRequest, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async slotDeleteSlot(request: DeleteSlotRequest, headers?: Headers): Promise<any>;
+    public async slotDeleteSlot(request: DeleteSlotRequest, headers?: Headers): Promise<HttpResponse<any>>;
+    public async slotDeleteSlot(request: DeleteSlotRequest, headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling slotDeleteSlot.');
         }
@@ -84,11 +78,8 @@ export class SlotsService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/slot`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.delete(`${this.basePath}/slot`, request , headers);
+        return response.response;
     }
 
 
@@ -98,9 +89,9 @@ export class SlotsService {
      * @param request 
      
      */
-    public slotEditSlot(request: EditSlotRequestDto, observe?: 'body', headers?: Headers): Observable<SlotDto>;
-    public slotEditSlot(request: EditSlotRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<SlotDto>>;
-    public slotEditSlot(request: EditSlotRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async slotEditSlot(request: EditSlotRequestDto, headers?: Headers): Promise<SlotDto>;
+    public async slotEditSlot(request: EditSlotRequestDto, headers?: Headers): Promise<HttpResponse<SlotDto>>;
+    public async slotEditSlot(request: EditSlotRequestDto, headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling slotEditSlot.');
         }
@@ -112,11 +103,8 @@ export class SlotsService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<SlotDto>> = this.httpClient.patch(`${this.basePath}/slot`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.patch(`${this.basePath}/slot`, request , headers);
+        return response.response;
     }
 
 
@@ -126,9 +114,9 @@ export class SlotsService {
      * @param type 
      
      */
-    public slotGetSlots(type?: string, observe?: 'body', headers?: Headers): Observable<Array<SlotDto>>;
-    public slotGetSlots(type?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<SlotDto>>>;
-    public slotGetSlots(type?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async slotGetSlots(type?: string, headers?: Headers): Promise<Array<SlotDto>>;
+    public async slotGetSlots(type?: string, headers?: Headers): Promise<HttpResponse<Array<SlotDto>>>;
+    public async slotGetSlots(type?: string, headers: Headers = {}): Promise<any> {
         let queryParameters: string[] = [];
         if (type !== undefined) {
             queryParameters.push("type="+encodeURIComponent(String(type)));
@@ -140,11 +128,8 @@ export class SlotsService {
         }
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<SlotDto>>> = this.httpClient.get(`${this.basePath}/slot?${queryParameters.join('&')}`, headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.get(`${this.basePath}/slot?${queryParameters.join('&')}`, headers);
+        return response.response;
     }
 
 }

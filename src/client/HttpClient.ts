@@ -1,32 +1,30 @@
 import IHttpClient from "./IHttpClient";
-import { Observable } from "rxjs/Observable";
 import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
 import {injectable} from "inversify";
-import "rxjs/add/observable/fromPromise";
 import { Headers } from "./Headers";
 import axios, { Method } from "axios";
 
 @injectable()
 class HttpClient implements IHttpClient {
 
-    get(url:string, headers?: Headers):Observable<HttpResponse> {
+    get(url:string, headers?: Headers):Promise<HttpResponse> {
         return this.performNetworkCall(url, "GET", undefined, headers);
     }
 
-    post(url: string, body: {}|FormData, headers?: Headers): Observable<HttpResponse> {
+    post(url: string, body: {}|FormData, headers?: Headers): Promise<HttpResponse> {
         return this.performNetworkCall(url, "POST", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
-    put(url: string, body: {}, headers?: Headers): Observable<HttpResponse> {
+    put(url: string, body: {}, headers?: Headers): Promise<HttpResponse> {
         return this.performNetworkCall(url, "PUT", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
-    patch(url: string, body: {}, headers?: Headers): Observable<HttpResponse> {
+    patch(url: string, body: {}, headers?: Headers): Promise<HttpResponse> {
         return this.performNetworkCall(url, "PATCH", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
-    delete(url: string, body: {}, headers?: Headers): Observable<HttpResponse> {
+    delete(url: string, body: {}, headers?: Headers): Promise<HttpResponse> {
         return this.performNetworkCall(url, "DELETE", this.getJsonBody(body), headers);
     }
 
@@ -41,7 +39,7 @@ class HttpClient implements IHttpClient {
         }, headers);
     };
 
-    private performNetworkCall(url: string, method: string, body?: any, headers?: Headers): Observable<HttpResponse> {
+    private performNetworkCall(url: string, method: string, body?: any, headers?: Headers): Promise<HttpResponse> {
         let promise = axios.request({
             method: method as Method,
             url: url,
@@ -61,7 +59,7 @@ class HttpClient implements IHttpClient {
         promise.catch(error => {
             console.log(error);
         });
-        return Observable.fromPromise(promise);
+        return promise
     }
 }
 

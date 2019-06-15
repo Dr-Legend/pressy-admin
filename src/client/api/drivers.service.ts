@@ -11,9 +11,6 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 import IHttpClient from "../IHttpClient";
 import { inject, injectable } from "inversify";
 import { IAPIConfiguration } from "../IAPIConfiguration";
@@ -38,9 +35,9 @@ export class DriversService {
      * @param request 
      
      */
-    public driverCreateDriver(request: CreatePersonRequestDto, observe?: 'body', headers?: Headers): Observable<any>;
-    public driverCreateDriver(request: CreatePersonRequestDto, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public driverCreateDriver(request: CreatePersonRequestDto, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public async driverCreateDriver(request: CreatePersonRequestDto, headers?: Headers): Promise<any>;
+    public async driverCreateDriver(request: CreatePersonRequestDto, headers?: Headers): Promise<HttpResponse<any>>;
+    public async driverCreateDriver(request: CreatePersonRequestDto, headers: Headers = {}): Promise<any> {
         if (!request){
             throw new Error('Required parameter request was null or undefined when calling driverCreateDriver.');
         }
@@ -52,11 +49,8 @@ export class DriversService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/driver`, request , headers);
-        if (observe === 'body') {
-               return response.map(httpResponse => httpResponse.response);
-        }
-        return response;
+        let response = await this.httpClient.post(`${this.basePath}/driver`, request, headers);
+        return response.response;
     }
 
 }
